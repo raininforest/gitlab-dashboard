@@ -14,9 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.github.raininforest.navigation.NavigationDestination
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onItemClick: (String) -> Unit) {
     val padding = 16.dp
 
     LazyVerticalGrid(
@@ -28,7 +29,7 @@ fun HomeScreen() {
         horizontalArrangement = Arrangement.spacedBy(padding)
     ) {
         items(listOf("TOP-5 users with high MR count", "empty", "empty", "empty", "empty", "empty")) {
-            DashboardItem(text = it) {}
+            DashboardItem(text = it, onClick = { onItemClick(NavigationDestination.DashboardUserMr.route) })
         }
     }
 }

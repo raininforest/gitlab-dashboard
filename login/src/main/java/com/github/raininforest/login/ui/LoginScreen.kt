@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreen() {
+fun LoginScreen(onAuthorize: () -> Unit) {
     val verticalPadding = 16.dp
     val horizontalPadding = 32.dp
 
@@ -42,7 +42,7 @@ fun LoginScreen() {
             label = { Text(text = "Access token") }
         )
         Button(
-            onClick = {},
+            onClick = onAuthorize,
             content = { Text(text = "Go") },
             modifier = Modifier
                 .fillMaxWidth()
