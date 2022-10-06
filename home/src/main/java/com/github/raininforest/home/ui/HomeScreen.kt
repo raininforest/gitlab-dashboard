@@ -11,14 +11,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.github.raininforest.navigation.NavigationDestination
 
 @Composable
-fun HomeScreen(onItemClick: (String) -> Unit) {
+fun HomeScreen(viewModel: HomeViewModel, onItemClick: (String) -> Unit) {
     val padding = 16.dp
+
+    val data = viewModel.dashboardItems.observeAsState(listOf())
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -28,8 +31,8 @@ fun HomeScreen(onItemClick: (String) -> Unit) {
         verticalArrangement = Arrangement.spacedBy(padding),
         horizontalArrangement = Arrangement.spacedBy(padding)
     ) {
-        items(listOf("TOP-5 users with high MR count", "empty", "empty", "empty", "empty", "empty")) {
-            DashboardItem(text = it, onClick = { onItemClick(NavigationDestination.DashboardUserMr.route) })
+        items(data.value) {
+            DashboardItem(text = it.text, onClick = { onItemClick(it.link) })
         }
     }
 }

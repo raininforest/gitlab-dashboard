@@ -12,9 +12,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.github.raininforest.dashboard_user_mr.di.DaggerMRDashboardComponent
 import com.github.raininforest.dashboard_user_mr.ui.MrDashboardScreen
+import com.github.raininforest.gitlabdashboard.di.CoreDependenciesProvider
 import com.github.raininforest.gitlabdashboard.ui.theme.GitlabDashboardTheme
+import com.github.raininforest.home.di.DaggerHomeComponent
 import com.github.raininforest.home.ui.HomeScreen
+import com.github.raininforest.login.di.DaggerLoginComponent
 import com.github.raininforest.login.ui.LoginScreen
 import com.github.raininforest.navigation.NavigationDestination
 
@@ -38,12 +42,24 @@ fun Main() {
 
     NavHost(navController = navController, startDestination = "login") {
         composable(NavigationDestination.Login.route) {
-            LoginScreen(onAuthorize = { navController.navigate(NavigationDestination.Home.route) })
+            LoginScreen(viewModel = daggerViewModel {
+                DaggerLoginComponent.builder().deps(CoreDependenciesProvider.dependencies).build().loginViewModel
+            }, onGo = { navController.navigate(NavigationDestination.Home.route) })
         }
         composable(NavigationDestination.Home.route) {
-            HomeScreen(onItemClick = { link -> navController.navigate(link) })
+            HomeScreen(viewModel = daggerViewModel {
+                DaggerHomeComponent.create().viewModel
+            }, onItemClick = { link -> if (link.isEmpty().not()) navController.navigate(link) })
         }
-        composable(NavigationDestination.DashboardUserMr.route) { MrDashboardScreen() }
+        composable(NavigationDestination.DashboardUserMr.route) {
+            MrDashboardScreen(
+                viewModel = daggerViewModel {
+                    DaggerMRDashboardComponent.builder()
+                        .coreDependencies(CoreDependenciesProvider.dependencies)
+                        .build().viewModel
+                }
+            )
+        }
     }
 }
 

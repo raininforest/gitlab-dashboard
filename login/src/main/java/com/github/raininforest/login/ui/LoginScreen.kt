@@ -10,12 +10,14 @@ import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun LoginScreen(onAuthorize: () -> Unit) {
+fun LoginScreen(viewModel: LoginViewModel, onGo: () -> Unit) {
     val verticalPadding = 16.dp
     val horizontalPadding = 32.dp
 
@@ -25,24 +27,43 @@ fun LoginScreen(onAuthorize: () -> Unit) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        val hostText = remember { mutableStateOf("") }
+        val projectIdText = remember { mutableStateOf("") }
+        val tokenText = remember { mutableStateOf("") }
+
         OutlinedTextField(
             modifier = Modifier
                 .padding(start = horizontalPadding, end = horizontalPadding, bottom = verticalPadding)
                 .fillMaxWidth(),
-            value = "",
-            onValueChange = {},
-            label = { Text(text = "Repository / Project") }
+            value = hostText.value,
+            onValueChange = { hostText.value = it },
+            label = { Text(text = "Repository host") }
         )
         OutlinedTextField(
             modifier = Modifier
                 .padding(start = horizontalPadding, end = horizontalPadding, bottom = verticalPadding)
                 .fillMaxWidth(),
-            value = "",
-            onValueChange = {},
-            label = { Text(text = "Access token") }
+            value = projectIdText.value,
+            onValueChange = {
+                projectIdText.value = it
+            },
+            label = { Text(text = "Project id") }
+        )
+        OutlinedTextField(
+            modifier = Modifier
+                .padding(start = horizontalPadding, end = horizontalPadding, bottom = verticalPadding)
+                .fillMaxWidth(),
+            value = tokenText.value,
+            onValueChange = { tokenText.value = it },
+            label = { Text(text = "Personal access token") }
         )
         Button(
-            onClick = onAuthorize,
+            onClick = {
+                viewModel.setHost(hostText.value)
+                viewModel.setProjectId(projectIdText.value)
+                viewModel.setToken(tokenText.value)
+                onGo.invoke()
+            },
             content = { Text(text = "Go") },
             modifier = Modifier
                 .fillMaxWidth()

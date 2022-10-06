@@ -13,20 +13,24 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.github.raininforest.dashboard_user_mr.repository.model.UserInfo
 
 @Composable
-fun MrDashboardScreen() {
+fun MrDashboardScreen(viewModel: MRDashboardViewModel) {
     val padding = 16.dp
+
+    val data = viewModel.userData.observeAsState(listOf())
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(padding),
         verticalArrangement = Arrangement.spacedBy(padding),
         content = {
-            items(listOf("user 1", "user 2")) {
+            items(data.value) {
                 User(it)
             }
         }
@@ -34,7 +38,7 @@ fun MrDashboardScreen() {
 }
 
 @Composable
-fun User(user: String) {
+fun User(user: UserInfo) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         content = {
@@ -48,11 +52,11 @@ fun User(user: String) {
                         .padding(16.dp),
                 ) {
                     Text(
-                        text = user,
+                        text = user.userName,
                         fontSize = 24.sp
                     )
                     Text(
-                        text = "12 MRs"
+                        text = "${user.mrCount} MRs"
                     )
                 }
             }
