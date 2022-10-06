@@ -45,7 +45,6 @@ fun User(user: UserInfo) {
             Row(
                 modifier = Modifier.fillMaxSize()
             ) {
-                //Image(painter = painterResource(id = R.drawable.), contentDescription = "")
                 Column(
                     modifier = Modifier
                         .fillMaxHeight()

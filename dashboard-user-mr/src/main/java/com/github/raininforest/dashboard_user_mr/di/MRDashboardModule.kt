@@ -1,5 +1,6 @@
 package com.github.raininforest.dashboard_user_mr.di
 
+import com.github.raininforest.dashboard_user_mr.repository.DateHelper
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardRepository
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardStatisticsBuilder
 import com.github.raininforest.dashboard_user_mr.repository.remote.MRDashboardRemote
@@ -25,6 +26,7 @@ object MRDashboardModule {
     ): MRDashboardRepository =
         MRDashboardRepository(
             dashboardRemote = mrDashboardRemote,
-            dashboardStatisticsBuilder = mrDashboardStatisticsBuilder
+            dashboardStatisticsBuilder = mrDashboardStatisticsBuilder,
+            dateHelper = DateHelper()
         )
 }

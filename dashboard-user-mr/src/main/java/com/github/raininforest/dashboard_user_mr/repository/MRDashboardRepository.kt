@@ -5,11 +5,17 @@ import com.github.raininforest.dashboard_user_mr.repository.remote.MRDashboardRe
 
 class MRDashboardRepository(
     private val dashboardRemote: MRDashboardRemote,
-    private val dashboardStatisticsBuilder: MRDashboardStatisticsBuilder
+    private val dashboardStatisticsBuilder: MRDashboardStatisticsBuilder,
+    private val dateHelper: DateHelper
 ) {
-    suspend fun data(): List<UserInfo> =
+    suspend fun data(daysAgo: Int = DAYS_COUNT): List<UserInfo> =
         dashboardStatisticsBuilder.extractUsersWithHighMrCount(
-            mrList = dashboardRemote.mergeRequests(),
-            topCount = 10
+            mrList = dashboardRemote.mergeRequests(dateHelper.calculateDate(daysAgo)),
+            topCount = TOP_COUNT
         )
+
+    companion object {
+        private const val DAYS_COUNT = 21
+        private const val TOP_COUNT = 5
+    }
 }

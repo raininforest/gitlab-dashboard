@@ -8,7 +8,6 @@ class MRDashboardStatisticsBuilder {
         val usersMap: MutableMap<String, Int> = hashMapOf()
 
         mrList
-            .filter { it.state == CLOSED_STATE }
             .onEach {
                 val username = it.author.name
                 usersMap[username] = usersMap[username]?.plus(1) ?: 1
@@ -23,9 +22,5 @@ class MRDashboardStatisticsBuilder {
                 UserInfo(userName = it.first, mrCount = it.second.toString())
             }
             .take(topCount)
-    }
-
-    companion object {
-        private const val CLOSED_STATE = "closed"
     }
 }
