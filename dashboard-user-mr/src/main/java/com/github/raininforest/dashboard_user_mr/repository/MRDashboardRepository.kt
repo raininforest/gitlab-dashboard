@@ -10,6 +10,6 @@ class MRDashboardRepository(
     suspend fun data(): List<UserInfo> =
         dashboardStatisticsBuilder.extractUsersWithHighMrCount(
             mrList = dashboardRemote.mergeRequests(),
-            topCount = 5
+            topCount = 10
         )
 }
