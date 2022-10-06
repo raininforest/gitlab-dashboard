@@ -6,7 +6,7 @@ class HomeRepository {
     val dashboardItems: List<DashboardItem>
         get() = listOf(
             DashboardItem(
-                text = "TOP-5 users with high closed MR count",
+                text = "TOP-5 users with high merged MR count",
                 link = NavigationDestination.DashboardUserMr.route
             ),
             DashboardItem(text = EMPTY_TEXT, link = ""),
