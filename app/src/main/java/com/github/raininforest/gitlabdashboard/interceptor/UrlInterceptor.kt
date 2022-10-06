@@ -13,14 +13,14 @@ class UrlInterceptor(private val initializationService: InitializationService) :
         val newUrl = originalUrl.newBuilder().apply {
             removePathSegment(0)
             scheme(SCHEME)
-            host(initializationService.host)
+            host(initializationService.getAuthData().host)
             addPathSegment(API_PATH_SEGMENT)
             addPathSegment(API_VERSION_PATH_SEGMENT)
             addPathSegment(PROJECTS_PATH_SEGMENT)
-            addPathSegment(initializationService.projectId)
+            addPathSegment(initializationService.getAuthData().projectId)
             addPathSegments(originalUrl.pathSegments.joinToString("/"))
 
-            setQueryParameter(PRIVATE_TOKEN_PARAMETER, initializationService.token)
+            setQueryParameter(PRIVATE_TOKEN_PARAMETER, initializationService.getAuthData().token)
         }
             .build()
 

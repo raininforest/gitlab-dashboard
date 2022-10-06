@@ -10,8 +10,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -21,22 +20,23 @@ fun LoginScreen(viewModel: LoginViewModel, onGo: () -> Unit) {
     val verticalPadding = 16.dp
     val horizontalPadding = 32.dp
 
+    val hostText = viewModel.host.observeAsState("")
+    val projectIdText = viewModel.projectId.observeAsState("")
+    val tokenText = viewModel.token.observeAsState("")
+
     Column(
         modifier = Modifier
             .fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        val hostText = remember { mutableStateOf("") }
-        val projectIdText = remember { mutableStateOf("") }
-        val tokenText = remember { mutableStateOf("") }
 
         OutlinedTextField(
             modifier = Modifier
                 .padding(start = horizontalPadding, end = horizontalPadding, bottom = verticalPadding)
                 .fillMaxWidth(),
             value = hostText.value,
-            onValueChange = { hostText.value = it },
+            onValueChange = { viewModel.setHost(it) },
             label = { Text(text = "Repository host") }
         )
         OutlinedTextField(
@@ -44,9 +44,7 @@ fun LoginScreen(viewModel: LoginViewModel, onGo: () -> Unit) {
                 .padding(start = horizontalPadding, end = horizontalPadding, bottom = verticalPadding)
                 .fillMaxWidth(),
             value = projectIdText.value,
-            onValueChange = {
-                projectIdText.value = it
-            },
+            onValueChange = { viewModel.setProjectId(it) },
             label = { Text(text = "Project id") }
         )
         OutlinedTextField(
@@ -54,14 +52,12 @@ fun LoginScreen(viewModel: LoginViewModel, onGo: () -> Unit) {
                 .padding(start = horizontalPadding, end = horizontalPadding, bottom = verticalPadding)
                 .fillMaxWidth(),
             value = tokenText.value,
-            onValueChange = { tokenText.value = it },
+            onValueChange = { viewModel.setToken(it) },
             label = { Text(text = "Personal access token") }
         )
         Button(
             onClick = {
-                viewModel.setHost(hostText.value)
-                viewModel.setProjectId(projectIdText.value)
-                viewModel.setToken(tokenText.value)
+                viewModel.onGo()
                 onGo.invoke()
             },
             content = { Text(text = "Go") },

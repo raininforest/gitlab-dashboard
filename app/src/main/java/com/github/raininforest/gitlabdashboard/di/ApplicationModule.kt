@@ -1,8 +1,11 @@
 package com.github.raininforest.gitlabdashboard.di
 
+import android.content.Context
 import com.github.raininforest.core.InitializationService
+import com.github.raininforest.core.PreferenceService
 import com.github.raininforest.gitlabdashboard.interceptor.UrlInterceptor
 import com.github.raininforest.gitlabdashboard.service.InitializationServiceImpl
+import com.github.raininforest.gitlabdashboard.service.PreferenceServiceImpl
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -35,5 +38,10 @@ object ApplicationModule {
 
     @Provides
     @ApplicationScope
-    fun provideBaseUrlService(): InitializationService = InitializationServiceImpl()
+    fun provideBaseUrlService(preferenceService: PreferenceService): InitializationService =
+        InitializationServiceImpl(preferenceService)
+
+    @Provides
+    @ApplicationScope
+    fun providePreferenceManager(context: Context): PreferenceService = PreferenceServiceImpl(context)
 }

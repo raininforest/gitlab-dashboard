@@ -9,6 +9,7 @@ class App : Application() {
 
     private val applicationComponent: ApplicationComponent by lazy {
         DaggerApplicationComponent.builder()
+            .context(this)
             .build()
     }
 

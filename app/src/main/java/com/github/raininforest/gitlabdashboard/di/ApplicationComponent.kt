@@ -1,7 +1,10 @@
 package com.github.raininforest.gitlabdashboard.di
 
-import com.github.raininforest.core.InitializationService
+import android.content.Context
 import com.github.raininforest.core.CoreDependencies
+import com.github.raininforest.core.InitializationService
+import com.github.raininforest.core.PreferenceService
+import dagger.BindsInstance
 import dagger.Component
 import retrofit2.Retrofit
 
@@ -9,5 +12,13 @@ import retrofit2.Retrofit
 @Component(modules = [ApplicationModule::class])
 interface ApplicationComponent : CoreDependencies {
     override val initializationService: InitializationService
+    override val preferenceService: PreferenceService
     override val retrofit: Retrofit
+
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun context(context: Context): Builder
+        fun build(): ApplicationComponent
+    }
 }
