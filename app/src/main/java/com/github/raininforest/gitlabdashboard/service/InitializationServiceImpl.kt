@@ -5,10 +5,6 @@ import com.github.raininforest.core.InitializationService
 import com.github.raininforest.core.PreferenceService
 
 class InitializationServiceImpl(private val preferenceService: PreferenceService) : InitializationService {
-//    override var host: String = "gitlab.letoile.tech"
-//    override var projectId: String = "87"
-//    override var token: String = "glpat-M_7otTbgh35Aj_bmbB8-"
-
     private var _authData: AuthData = AuthData()
 
     override fun setAuthData(authData: AuthData) {
