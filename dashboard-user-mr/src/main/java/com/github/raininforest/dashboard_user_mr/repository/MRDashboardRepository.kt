@@ -27,7 +27,8 @@ class MRDashboardRepository(
 
     suspend fun data(): List<UserInfo> =
         dashboardStatisticsBuilder.extractUsersWithHighMrCount(
-            mrList = dashboardRemote.mergeRequests(createdAfter = _fromDate.toISO_8601(), createdBefore = _toDate.toISO_8601()),
+            mrList = dashboardRemote
+                .mergeRequests(createdAfter = _fromDate.toISO_8601(), createdBefore = _toDate.toISO_8601()),
             topCount = TOP_COUNT
         )
 
