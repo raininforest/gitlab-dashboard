@@ -12,15 +12,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.github.raininforest.dashboard_user_mr.di.DaggerMRDashboardComponent
-import com.github.raininforest.dashboard_user_mr.ui.MrDashboardScreen
-import com.github.raininforest.gitlabdashboard.di.CoreDependenciesProvider
+import com.github.raininforest.dashboard_user_mr.navigation.loginGraph
+import com.github.raininforest.core.di.CoreDependenciesProvider
 import com.github.raininforest.gitlabdashboard.ui.theme.GitlabDashboardTheme
 import com.github.raininforest.home.di.DaggerHomeComponent
 import com.github.raininforest.home.ui.HomeScreen
 import com.github.raininforest.login.di.DaggerLoginComponent
 import com.github.raininforest.login.ui.LoginScreen
 import com.github.raininforest.navigation.NavigationDestination
+import com.github.raininforest.navigation.daggerViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,15 +51,7 @@ fun Main() {
                 DaggerHomeComponent.create().viewModel
             }, onItemClick = { link -> if (link.isEmpty().not()) navController.navigate(link) })
         }
-        composable(NavigationDestination.DashboardUserMr.route) {
-            MrDashboardScreen(
-                viewModel = daggerViewModel {
-                    DaggerMRDashboardComponent.builder()
-                        .coreDependencies(CoreDependenciesProvider.dependencies)
-                        .build().viewModel
-                }
-            )
-        }
+        loginGraph(navController)
     }
 }
 

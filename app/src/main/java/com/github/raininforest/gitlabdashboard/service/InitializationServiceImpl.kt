@@ -1,8 +1,8 @@
 package com.github.raininforest.gitlabdashboard.service
 
-import com.github.raininforest.core.AuthData
-import com.github.raininforest.core.InitializationService
-import com.github.raininforest.core.PreferenceService
+import com.github.raininforest.core.model.AuthData
+import com.github.raininforest.core.service.InitializationService
+import com.github.raininforest.core.service.PreferenceService
 
 class InitializationServiceImpl(private val preferenceService: PreferenceService) : InitializationService {
     private var _authData: AuthData = AuthData()

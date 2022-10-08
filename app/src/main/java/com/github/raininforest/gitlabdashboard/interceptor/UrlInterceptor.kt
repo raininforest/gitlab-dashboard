@@ -1,6 +1,6 @@
 package com.github.raininforest.gitlabdashboard.interceptor
 
-import com.github.raininforest.core.InitializationService
+import com.github.raininforest.core.service.InitializationService
 import okhttp3.Interceptor
 import okhttp3.Response
 

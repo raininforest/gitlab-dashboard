@@ -1,6 +1,5 @@
-package com.github.raininforest.gitlabdashboard.di
+package com.github.raininforest.core.di
 
-import com.github.raininforest.core.CoreDependencies
 import kotlin.properties.Delegates.notNull
 
 interface CoreDependenciesProvider {

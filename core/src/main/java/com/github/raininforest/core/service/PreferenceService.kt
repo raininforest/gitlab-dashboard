@@ -1,4 +1,4 @@
-package com.github.raininforest.core
+package com.github.raininforest.core.service
 
 interface PreferenceService {
     fun loadStringFromPreferences(key: String): String

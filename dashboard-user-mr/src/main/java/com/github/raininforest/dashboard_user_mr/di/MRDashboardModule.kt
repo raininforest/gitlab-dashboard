@@ -1,9 +1,10 @@
 package com.github.raininforest.dashboard_user_mr.di
 
-import com.github.raininforest.dashboard_user_mr.repository.DateHelper
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardRepository
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardStatisticsBuilder
 import com.github.raininforest.dashboard_user_mr.repository.remote.MRDashboardRemote
+import com.github.raininforest.datepicker.service.DateStorage
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -27,6 +28,12 @@ object MRDashboardModule {
         MRDashboardRepository(
             dashboardRemote = mrDashboardRemote,
             dashboardStatisticsBuilder = mrDashboardStatisticsBuilder,
-            dateHelper = DateHelper()
         )
+}
+
+@Module
+interface DateStorageModule {
+    @MRDashboardScope
+    @Binds
+    fun bindDateStorage(impl: MRDashboardRepository): DateStorage
 }

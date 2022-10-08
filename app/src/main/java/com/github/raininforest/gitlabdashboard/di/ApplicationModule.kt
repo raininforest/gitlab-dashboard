@@ -1,8 +1,8 @@
 package com.github.raininforest.gitlabdashboard.di
 
 import android.content.Context
-import com.github.raininforest.core.InitializationService
-import com.github.raininforest.core.PreferenceService
+import com.github.raininforest.core.service.InitializationService
+import com.github.raininforest.core.service.PreferenceService
 import com.github.raininforest.gitlabdashboard.interceptor.UrlInterceptor
 import com.github.raininforest.gitlabdashboard.service.InitializationServiceImpl
 import com.github.raininforest.gitlabdashboard.service.PreferenceServiceImpl

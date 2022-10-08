@@ -7,7 +7,7 @@ class HomeRepository {
         get() = listOf(
             DashboardItem(
                 text = "TOP-5 users with high merged MR count",
-                link = NavigationDestination.DashboardUserMr.route
+                link = NavigationDestination.MrDashboard.route
             ),
             DashboardItem(text = EMPTY_TEXT, link = ""),
             DashboardItem(text = EMPTY_TEXT, link = ""),

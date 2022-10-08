@@ -22,7 +22,6 @@ import com.github.raininforest.dashboard_user_mr.repository.model.UserInfo
 @Composable
 fun MrDashboardScreen(viewModel: MRDashboardViewModel) {
     val padding = 16.dp
-
     val data = viewModel.userData.observeAsState(listOf())
 
     LazyColumn(

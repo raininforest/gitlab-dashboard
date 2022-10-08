@@ -1,4 +1,4 @@
-package com.github.raininforest.core
+package com.github.raininforest.core.model
 
 data class AuthData(
     val host: String = "",

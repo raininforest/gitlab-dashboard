@@ -3,7 +3,7 @@ package com.github.raininforest.gitlabdashboard
 import android.app.Application
 import com.github.raininforest.gitlabdashboard.di.ApplicationComponent
 import com.github.raininforest.gitlabdashboard.di.DaggerApplicationComponent
-import com.github.raininforest.gitlabdashboard.di.CoreDependenciesStore
+import com.github.raininforest.core.di.CoreDependenciesStore
 
 class App : Application() {
 

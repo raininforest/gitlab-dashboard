@@ -2,7 +2,7 @@ package com.github.raininforest.gitlabdashboard.service
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.github.raininforest.core.PreferenceService
+import com.github.raininforest.core.service.PreferenceService
 import javax.inject.Inject
 
 class PreferenceServiceImpl @Inject constructor(private val context: Context) : PreferenceService {

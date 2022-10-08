@@ -50,6 +50,7 @@ dependencies {
 
     implementation project(':login')
     implementation project(':home')
+    implementation project(':datepicker')
     implementation project(':dashboard-user-mr')
     implementation project(':navigation')
     implementation project(':core')

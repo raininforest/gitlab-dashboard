@@ -1,4 +1,4 @@
-package com.github.raininforest.gitlabdashboard
+package com.github.raininforest.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.ViewModel

@@ -3,8 +3,8 @@ package com.github.raininforest.login.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.github.raininforest.core.AuthData
-import com.github.raininforest.core.InitializationService
+import com.github.raininforest.core.model.AuthData
+import com.github.raininforest.core.service.InitializationService
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(

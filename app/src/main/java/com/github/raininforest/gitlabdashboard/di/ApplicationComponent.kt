@@ -1,9 +1,9 @@
 package com.github.raininforest.gitlabdashboard.di
 
 import android.content.Context
-import com.github.raininforest.core.CoreDependencies
-import com.github.raininforest.core.InitializationService
-import com.github.raininforest.core.PreferenceService
+import com.github.raininforest.core.di.CoreDependencies
+import com.github.raininforest.core.service.InitializationService
+import com.github.raininforest.core.service.PreferenceService
 import dagger.BindsInstance
 import dagger.Component
 import retrofit2.Retrofit

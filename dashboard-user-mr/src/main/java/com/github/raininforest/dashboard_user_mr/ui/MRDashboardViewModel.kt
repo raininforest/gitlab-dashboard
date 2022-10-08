@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardRepository
 import com.github.raininforest.dashboard_user_mr.repository.model.UserInfo
 import kotlinx.coroutines.CoroutineExceptionHandler

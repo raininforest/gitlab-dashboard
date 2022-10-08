@@ -9,6 +9,8 @@ interface MRDashboardRemote {
     @GET("merge_requests")
     suspend fun mergeRequests(
         @Query("created_after") createdAfter: String,
-        @Query("state") state: String = "merged"
+        @Query("created_before") createdBefore: String,
+        @Query("state") state: String = "merged",
+        @Query("per_page") perPage: String = "100"
     ): MergeRequestsDTO
 }
