@@ -3,6 +3,7 @@ package com.github.raininforest.dashboard_user_mr.di
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardRepository
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardStatisticsBuilder
 import com.github.raininforest.dashboard_user_mr.repository.remote.MRDashboardRemote
+import com.github.raininforest.dashboard_user_mr.repository.remote.PaginatedRemoteMrDataSource
 import com.github.raininforest.datepicker.service.DateStorage
 import dagger.Binds
 import dagger.Module
@@ -21,12 +22,18 @@ object MRDashboardModule {
 
     @MRDashboardScope
     @Provides
+    fun providePaginatedRemoteMrDataSource(
+        mrDashboardRemote: MRDashboardRemote
+    ): PaginatedRemoteMrDataSource = PaginatedRemoteMrDataSource(mrDashboardRemote)
+
+    @MRDashboardScope
+    @Provides
     fun provideMRDashboardRepository(
-        mrDashboardRemote: MRDashboardRemote,
+        paginatedRemoteMrDataSource: PaginatedRemoteMrDataSource,
         mrDashboardStatisticsBuilder: MRDashboardStatisticsBuilder
     ): MRDashboardRepository =
         MRDashboardRepository(
-            dashboardRemote = mrDashboardRemote,
+            paginatedRemoteMrDataSource = paginatedRemoteMrDataSource,
             dashboardStatisticsBuilder = mrDashboardStatisticsBuilder,
         )
 }

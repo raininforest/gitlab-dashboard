@@ -1,10 +1,10 @@
 package com.github.raininforest.dashboard_user_mr.repository
 
 import com.github.raininforest.dashboard_user_mr.repository.model.UserInfo
-import com.github.raininforest.dashboard_user_mr.repository.remote.dto.MergeRequestsDTO
+import com.github.raininforest.dashboard_user_mr.repository.remote.dto.MergeRequestsDTOItem
 
 class MRDashboardStatisticsBuilder {
-    fun extractUsersWithHighMrCount(mrList: MergeRequestsDTO, topCount: Int): List<UserInfo> {
+    fun extractUsersWithHighMrCount(mrList: List<MergeRequestsDTOItem>, topCount: Int): List<UserInfo> {
         val usersMap: MutableMap<String, Int> = hashMapOf()
 
         mrList

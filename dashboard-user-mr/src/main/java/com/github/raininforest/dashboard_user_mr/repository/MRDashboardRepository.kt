@@ -2,12 +2,12 @@ package com.github.raininforest.dashboard_user_mr.repository
 
 import com.github.raininforest.core.model.toISO_8601
 import com.github.raininforest.dashboard_user_mr.repository.model.UserInfo
-import com.github.raininforest.dashboard_user_mr.repository.remote.MRDashboardRemote
+import com.github.raininforest.dashboard_user_mr.repository.remote.PaginatedRemoteMrDataSource
 import com.github.raininforest.datepicker.service.DateStorage
 import java.util.*
 
 class MRDashboardRepository(
-    private val dashboardRemote: MRDashboardRemote,
+    private val paginatedRemoteMrDataSource: PaginatedRemoteMrDataSource,
     private val dashboardStatisticsBuilder: MRDashboardStatisticsBuilder,
 ) : DateStorage {
 
@@ -27,8 +27,10 @@ class MRDashboardRepository(
 
     suspend fun data(): List<UserInfo> =
         dashboardStatisticsBuilder.extractUsersWithHighMrCount(
-            mrList = dashboardRemote
-                .mergeRequests(createdAfter = _fromDate.toISO_8601(), createdBefore = _toDate.toISO_8601()),
+            mrList = paginatedRemoteMrDataSource.fetchMRs(
+                createdAfter = _fromDate.toISO_8601(),
+                createdBefore = _toDate.toISO_8601()
+            ),
             topCount = TOP_COUNT
         )
 
