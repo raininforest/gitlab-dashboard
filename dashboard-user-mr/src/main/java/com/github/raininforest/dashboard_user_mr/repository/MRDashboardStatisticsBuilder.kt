@@ -1,16 +1,17 @@
 package com.github.raininforest.dashboard_user_mr.repository
 
 import com.github.raininforest.dashboard_user_mr.repository.model.UserInfo
+import com.github.raininforest.dashboard_user_mr.repository.remote.dto.Author
 import com.github.raininforest.dashboard_user_mr.repository.remote.dto.MergeRequestsDTOItem
 
 class MRDashboardStatisticsBuilder {
     fun extractUsersWithHighMrCount(mrList: List<MergeRequestsDTOItem>, topCount: Int): List<UserInfo> {
-        val usersMap: MutableMap<String, Int> = hashMapOf()
+        val usersMap: MutableMap<Author, Int> = hashMapOf()
 
         mrList
             .onEach {
-                val username = it.author.name
-                usersMap[username] = usersMap[username]?.plus(1) ?: 1
+                val author = it.author
+                usersMap[author] = usersMap[author]?.plus(1) ?: 1
             }
 
         return usersMap
@@ -19,7 +20,7 @@ class MRDashboardStatisticsBuilder {
                 it.second
             }
             .map {
-                UserInfo(userName = it.first, mrCount = it.second.toString())
+                UserInfo(userName = it.first.name, mrCount = it.second.toString(), avaUrl = it.first.avatar_url)
             }
             .take(topCount)
     }
