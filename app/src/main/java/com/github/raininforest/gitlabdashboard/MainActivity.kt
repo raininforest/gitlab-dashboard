@@ -3,17 +3,23 @@ package com.github.raininforest.gitlabdashboard
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.github.raininforest.dashboard_user_mr.navigation.loginGraph
 import com.github.raininforest.core.di.CoreDependenciesProvider
+import com.github.raininforest.dashboard_user_mr.navigation.loginGraph
 import com.github.raininforest.gitlabdashboard.ui.theme.GitlabDashboardTheme
 import com.github.raininforest.home.di.DaggerHomeComponent
 import com.github.raininforest.home.ui.HomeScreen
@@ -59,8 +65,16 @@ fun Main() {
 @Composable
 fun DefaultPreview() {
     GitlabDashboardTheme {
-        //LoginScreen()
-        //HomeScreen()
-        //MrDashboardScreen()
+        Box(
+            Modifier
+                .fillMaxSize()
+                .background(color = MaterialTheme.colors.background)
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center),
+                color = MaterialTheme.colors.primary,
+                strokeWidth = 4.dp
+            )
+        }
     }
 }

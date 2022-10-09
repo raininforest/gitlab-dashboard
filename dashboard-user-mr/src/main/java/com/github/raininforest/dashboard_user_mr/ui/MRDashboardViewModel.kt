@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardRepository
-import com.github.raininforest.dashboard_user_mr.repository.model.UserInfo
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +17,8 @@ class MRDashboardViewModel @Inject constructor(
     private val mrDashboardRepository: MRDashboardRepository
 ) : ViewModel() {
 
-    private val _userData: MutableLiveData<List<UserInfo>> = MutableLiveData()
-    val userData: LiveData<List<UserInfo>>
+    private val _userData: MutableLiveData<MrDashboardUiState> = MutableLiveData()
+    val userData: LiveData<MrDashboardUiState>
         get() = _userData
 
     private val vmCoroutineScope = CoroutineScope(
@@ -31,13 +30,14 @@ class MRDashboardViewModel @Inject constructor(
 
     init {
         cancelJob()
+        _userData.postValue(MrDashboardUiState.Loading)
         vmCoroutineScope.launch {
-            _userData.postValue(mrDashboardRepository.data())
+            _userData.postValue(MrDashboardUiState.Result(mrDashboardRepository.data()))
         }
     }
 
     private fun handleError(e: Throwable) {
-        Log.e("GitlabDashboard",e.message ?: "Error getting data from repository")
+        Log.e("GitlabDashboard", e.message ?: "Error getting data from repository")
     }
 
     private fun cancelJob() {
