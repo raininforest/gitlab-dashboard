@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.github.raininforest.core.TAG
 import com.github.raininforest.dashboard_user_mr.repository.MRDashboardRepository
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
@@ -37,7 +38,7 @@ class MRDashboardViewModel @Inject constructor(
     }
 
     private fun handleError(e: Throwable) {
-        Log.e("GitlabDashboard", e.message ?: "Error getting data from repository")
+        Log.e(TAG, e.message ?: "Error getting data from repository")
         _uiState.postValue(MrDashboardUiState.Error(e.message.orEmpty()))
     }
 
