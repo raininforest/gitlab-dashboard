@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Snackbar
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
@@ -36,11 +37,12 @@ private val padding = 16.dp
 
 @Composable
 fun MrDashboardScreen(viewModel: MRDashboardViewModel) {
-    val screenState = viewModel.userData.observeAsState(MrDashboardUiState.Loading)
+    val screenState = viewModel.uiState.observeAsState(MrDashboardUiState.Loading)
 
     when (val screenStateValue = screenState.value) {
         is MrDashboardUiState.Loading -> Loading()
         is MrDashboardUiState.Result -> UserList(data = screenStateValue.data)
+        is MrDashboardUiState.Error -> ErrorSnackbar(errorMsg = screenStateValue.errorMsg)
     }
 }
 
@@ -55,6 +57,13 @@ fun Loading() {
             modifier = Modifier.align(Alignment.Center),
             color = MaterialTheme.colors.primary,
         )
+    }
+}
+
+@Composable
+fun ErrorSnackbar(errorMsg: String) {
+    Snackbar {
+        Text(text = errorMsg)
     }
 }
 

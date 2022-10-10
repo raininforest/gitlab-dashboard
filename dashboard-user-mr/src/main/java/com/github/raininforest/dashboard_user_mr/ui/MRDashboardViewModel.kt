@@ -17,9 +17,9 @@ class MRDashboardViewModel @Inject constructor(
     private val mrDashboardRepository: MRDashboardRepository
 ) : ViewModel() {
 
-    private val _userData: MutableLiveData<MrDashboardUiState> = MutableLiveData()
-    val userData: LiveData<MrDashboardUiState>
-        get() = _userData
+    private val _uiState: MutableLiveData<MrDashboardUiState> = MutableLiveData()
+    val uiState: LiveData<MrDashboardUiState>
+        get() = _uiState
 
     private val vmCoroutineScope = CoroutineScope(
         Dispatchers.IO
@@ -30,14 +30,15 @@ class MRDashboardViewModel @Inject constructor(
 
     init {
         cancelJob()
-        _userData.postValue(MrDashboardUiState.Loading)
+        _uiState.postValue(MrDashboardUiState.Loading)
         vmCoroutineScope.launch {
-            _userData.postValue(MrDashboardUiState.Result(mrDashboardRepository.data()))
+            _uiState.postValue(MrDashboardUiState.Result(mrDashboardRepository.data()))
         }
     }
 
     private fun handleError(e: Throwable) {
         Log.e("GitlabDashboard", e.message ?: "Error getting data from repository")
+        _uiState.postValue(MrDashboardUiState.Error(e.message.orEmpty()))
     }
 
     private fun cancelJob() {
